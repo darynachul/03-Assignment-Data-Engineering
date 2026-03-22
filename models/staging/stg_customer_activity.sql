@@ -1,0 +1,7 @@
+select
+    a.customer_id,
+    max(t.transaction_date) as last_activity_date
+from {{ ref('stg_transactions') }} t
+join {{ ref('stg_accounts') }} a
+    on t.account_id = a.account_id
+group by a.customer_id

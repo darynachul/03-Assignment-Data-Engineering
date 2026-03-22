@@ -1,0 +1,61 @@
+version: 2
+
+models:
+
+  - name: dim_customers
+    description: "Customer dimension"
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+
+  - name: dim_accounts
+    description: "Account dimension"
+    columns:
+      - name: account_id
+        tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+
+  - name: fct_transactions
+    description: "Transactions fact table"
+    columns:
+      - name: transaction_id
+        tests:
+          - unique
+          - not_null
+
+      - name: transaction_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['credit', 'debit']
+
+      - name: account_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_accounts')
+              field: account_id
+
+  - name: fct_payments
+    columns:
+      - name: payment_id
+        tests:
+          - unique
+          - not_null
+
+      - name: loan_id
+        tests:
+          - relationships:
+              to: ref('fct_loans')
+              field: loan_id
