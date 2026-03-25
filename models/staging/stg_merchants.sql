@@ -4,3 +4,4 @@ select
     category,
     region_id
 from {{ ref('raw_merchants') }}
+where merchant_id is not null

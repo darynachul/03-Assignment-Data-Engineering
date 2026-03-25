@@ -5,3 +5,4 @@ select
     is_active,
     cast(issued_date as date) as issued_date
 from {{ ref('raw_cards') }}
+where card_id is not null

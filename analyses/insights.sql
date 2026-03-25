@@ -1,11 +1,11 @@
 -- Revenue by region
 select
-    c.region_name,
+    c.city,
     round(sum(r.total_revenue),2) as total_revenue
 from {{ ref('fct_customer_revenue') }} r
 join {{ ref('dim_customers') }} c
     on r.customer_id = c.customer_id
-group by c.region_name
+group by c.city
 order by total_revenue desc;
 
 -- Top 10 customers by revenue
@@ -38,10 +38,10 @@ order by transaction_count desc;
 
 -- Top regions by number of customers
 select
-    region_name,
+    city,
     count(*) as customers_count
 from {{ ref('dim_customers') }}
-group by region_name
+group by city
 order by customers_count desc;
 
 -- Volume by Transaction Type

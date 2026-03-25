@@ -1,3 +1,2 @@
-select *
-from {{ ref('fct_transactions') }}
-where transaction_type = 'credit' and amount < 0
+select * from {{ ref('fct_transactions') }}
+where transaction_type = 'debit' and amount < 0

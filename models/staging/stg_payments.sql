@@ -5,3 +5,4 @@ select
     cast(payment_date as date) as payment_date,
     status
 from {{ ref('raw_payments') }}
+where payment_id is not null
